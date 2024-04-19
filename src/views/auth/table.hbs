@@ -2,9 +2,10 @@
     <table id="myTable" class="display table table_hover">
         <thead>
             <tr>
-                <th>Email</th>
                 <th>Nombre</th>
-                <th>Hora</th>
+                <th>Email</th>
+                <th>Fecha</th>
+                <th>Opciones</th>
             </tr>
         </thead>
         <tbody>
@@ -13,22 +14,29 @@
                 <td>{{this.nombre}}</td>
                 <td>{{this.email}}</td>
                 <td>
+
                     <script>
+
                         var fechaRegistro = new Date("{{this.fecha}}");
                         var dia = fechaRegistro.getDate();
                         var mes = fechaRegistro.getMonth() + 1;
-                        var año = fechaRegistro.getFullYear();
+                        var anio = fechaRegistro.getFullYear();
                         var horas = fechaRegistro.getHours();
                         var minutos = fechaRegistro.getMinutes();
+                        var segundos = fechaRegistro.getSeconds();
 
-                        var fechaHoraFormatead = `${dia}/${mes}/${año} - ${horas}:${minutos}`
-                        document.currentScript.parentElement.innerHTML = fechaHoraFormatead;
-
+                        var fechaHoraFormateada = `${dia}/${mes}/${anio} - ${horas}:${minutos}:${segundos}`;
+                        document.currentScript.parentElement.innerHTML = fechaHoraFormateada;
 
                     </script>
 
                 </td>
-                
+                <td>
+                    <a href="/asistencia/{{this._id}}/editar" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                    <form action="/eliminar-asistencia/{{this._id}}" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                    </form>
+                </td>
             </tr>
             {{/each}}
         </tbody>
